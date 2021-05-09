@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE configuration
+        PUBLIC "-//mybatis.org//DTD Config 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-config.dtd">
+<configuration>
+
+
+    <!--添加配置文件 -->
+    <properties resource="db.properties" />
+
+    <settings>
+        <!-- 是否开启缓存 全局性地开启或关闭所有映射器配置文件中已配置的任何缓存。 -->
+        <setting name="cacheEnabled" value="true"/>
+        <!-- 开启 延迟加载的全局开关，当开启时，所有关联对象都会延迟加载，特定关联对象可以通过设置 fetchType 属性来覆盖此开关 -->
+        <setting name="lazyLoadingEnabled" value="true"/>
+        <!-- 是否允许单个语句返回多个结果集 主要依赖数据库驱动-->
+        <setting name="multipleResultSetsEnabled" value="true"/>
+<!-- 使用列标签代替列名，实际使用依赖数据库驱动，具体可以参考数据库驱动文档，或通过对比来观察结果 -->
+        <setting name="useColumnLabel" value="true"/>
+        <!-- 允许JDBC 自动生成主键，需要数据库驱动支持-->
+        <setting name="useGeneratedKeys" value="false"/>
+        <!-- 指定 mybatis 应该如何映射列字段到属性，NONE 表示 关闭自动映射，partial 表示指挥映射没有定义嵌套结果映射的字段，full 表示会全部映射所有字段不管嵌套的复杂性-->
+        <setting name="autoMappingBehavior" value="PARTIAL"/>
+        <!-- 指定发现自动映射目标未知列（或未知属性的行为） NONE 不做任何反应，warning 警告，failing 映射失败 -->
+        <setting name="autoMappingUnknownColumnBehavior" value="WARNING"/>
+        <!-- 指定默认执行器 simple 普通处理器 reuse 会重用 预处理器 prepareStatement  batch 执行器不仅会重用，而且会执行批量更新 -->
+        <setting name="defaultExecutorType" value="SIMPLE"/>
+        <!-- 默认执行超时时间 它决定数据库驱动等待数据库响应的秒数-->
+        <setting name="defaultStatementTimeout" value="25"/>
+        <!--为驱动的结果集获取数量 设置一个建议值，此参数只可以在查询设置中被覆盖 -->
+        <setting name="defaultFetchSize" value="100"/>
+        <!-- 是否允许在 嵌套语句中使用分页，如果允许使用则设置为 false -->
+        <setting name="safeRowBoundsEnabled" value="false"/>
+        <!-- 是否开启驼峰命名自动映射 即从经典的 数据库列名 a_column 到Java 对象中 的 aColumn -->
+        <setting name="mapUnderscoreToCamelCase" value="false"/>
+        <setting name="localCacheScope" value="SESSION"/>
+        <setting name="jdbcTypeForNull" value="OTHER"/>
+        <!-- 指定对象的哪些方法触发一次延迟加载 -->
+        <setting name="lazyLoadTriggerMethods" value="equals,clone,hashCode,toString"/>
+
+        <setting name="logImpl" value="STDOUT_LOGGING"/>
+    </settings>
+    <environments default="development">
+        <environment id="development">
+            <transactionManager type="JDBC" />
+
+            <dataSource type="POOLED">
+                <property name="driver" value="${jdbc.driver}"/>
+                <property name="url" value="${jdbc.url}"/>
+                <property name="username" value="${jdbc.username}"/>
+                <property name="password" value="${jdbc.password}"/>
+                <property name="poolMaximumActiveConnections" value="20"/>
+                <property name="poolMaximumIdleConnections" value="10"/>
+                <property name="poolMaximumCheckoutTime" value="10"/>
+                <property name="poolTimeToWait" value="10"/>
+<!--                <property name="poolPingQuery " value="NO PING QUERY SET"/>-->
+                <property name="poolPingQuery" value="select 1 from dual"/>
+<!--                <property name="poolPingEnable" value="true"/>-->
+            </dataSource>
+        </environment>
+    </environments>
+
+
+    <mappers>
+<!--        <mapper resource="org/example/mapper/UserMapper.xml"/>-->
+<!--        <package name="org.example.mapper.*"/>-->
+<!--        <mapper class="org.example.mapper.UserMapper" />-->
+        <mapper resource="UserMapper.xml" />
+    </mappers>
+
+</configuration>

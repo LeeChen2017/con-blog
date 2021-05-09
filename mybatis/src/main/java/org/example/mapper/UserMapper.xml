@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Config 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="org.example.mapper.UserMapper">
+    <resultMap id="result" type="org.example.domain.User" >
+        <id jdbcType="BIGINT" />
+        <result column="name" jdbcType="VARCHAR"  />
+        <result column="age" jdbcType="INT" />
+        <result column="address" jdbcType="VARCHAR"  />
+        <result column="lastModifiedBy" jdbcType="VARCHAR" />
+        <result column="lastModifiedDate" jdbcType="DATE" />
+        <result column="createBy" jdbcType="VARCHAR"  />
+        <result column="creationTime" jdbcType="DATE" />
+    </resultMap>
+    <!--  缓存清空策略 FIFO 先进先出 ，LRU 最少使用原则，SOFT 软引用 基于垃圾回收器状态和软引用规则移除对象，WEAK 弱引用 更积极地基于垃圾收集器状态和弱引用规则移除对象-->
+    <cache eviction="FIFO" flushInterval="600000" size="1024"  />
+
+    <select id="findAll" resultType="org.example.domain.User">
+        select * from user
+    </select>
+
+    <select id="findById" resultType="org.example.domain.User" >
+        select * from user where id = ${id}
+    </select>
+
+</mapper>

@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE configuration
+        PUBLIC "-//mybatis.org//DTD Config 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-config.dtd">
+<configuration>
+
+    <properties resource="db.properties" />
+    <!--日志输出-->
+    <settings>
+        <setting name="logImpl" value="STDOUT_LOGGING"/>
+    </settings>
+    <!--表示使用的是哪个环境的数据源-->
+    <environments default="office">
+
+        <!--声明数据源的环境名称-->
+        <environment id="home">
+            <!--声明事务管理器
+            JDBC : 表示底层使用JDBC的connection对象的commit，rollback来管理事务
+            Managed : 表示使用容器或者是其他的框架来管理事务，例如以后大家学习了Spring，就可以把事务交给Spring框架来管理
+            -->
+            <transactionManager type="JDBC"/>
+            <!--表示底层使用的是PooledDatasource-->
+            <dataSource type="POOLED">
+                <property name="driver" value="com.mysql.jdbc.Driver"/>
+                <property name="url" value="jdbc:mysql://localhost:3306/db2"/>
+                <property name="username" value="root"/>
+                <property name="password" value="123456"/>
+            </dataSource>
+        </environment>
+
+
+        <!--声明数据源的环境名称-->
+        <environment id="office">
+            <!--声明事务管理器
+            JDBC : 表示底层使用JDBC的connection对象的commit，rollback来管理事务
+            Managed : 表示使用容器或者是其他的框架来管理事务，例如以后大家学习了Spring，就可以把事务交给Spring框架来管理
+            -->
+            <transactionManager type="JDBC"/>
+            <!--表示底层使用的是PooledDatasource-->
+            <dataSource type="POOLED">
+                <property name="driver" value="${jdbc.driver}"/>
+                <property name="url" value="${jdbc.url}"/>
+                <property name="username" value="${jdbc.username}"/>
+                <property name="password" value="${jdbc.password}"/>
+            </dataSource>
+        </environment>
+    </environments>
+    <mappers>
+        <!--配置mapper文件的位置-->
+        <mapper resource="com/cskaoyan/dao/UserDao.xml"/>
+        <!--<package name="com.cskaoyan.dao"-->
+    </mappers>
+</configuration>
