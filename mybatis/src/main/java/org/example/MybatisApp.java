@@ -2,6 +2,9 @@ package org.example;
 
 import org.apache.ibatis.io.Resources;
 import org.apache.ibatis.session.*;
+import org.example.domain.User;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import java.io.Reader;
 
@@ -10,6 +13,8 @@ import java.io.Reader;
  * @date 2021/05/08
  */
 public class MybatisApp {
+
+    private static final Logger logger = LoggerFactory.getLogger(MybatisApp.class);
 
     public static void main(String[] args) {
         String configFile = "mybatis-config.xml";
@@ -21,7 +26,11 @@ public class MybatisApp {
             //获取 SqlSessionFactory 对象
             SqlSessionFactory build = new SqlSessionFactoryBuilder().build(reader);
             SqlSession sqlSession = build.openSession();
-            sqlSession.selectOne("org.example.mapper.UserMapper.findById" , 1);
+            User user = (User)sqlSession.selectOne("org.example.mapper.UserMapper.findById", 1);
+            logger.debug("current user message :{}" , user.toString());
+
+
+            sqlSession.clearCache();
             sqlSession.close();
         } catch (Exception e) {
             e.printStackTrace();

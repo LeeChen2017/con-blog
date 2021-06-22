@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:p="http://www.springframework.org/schema/p"
+       xmlns:context="http://www.springframework.org/schema/context"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd http://www.springframework.org/schema/context https://www.springframework.org/schema/context/spring-context.xsd">
+
+    <context:component-scan base-package="com.example" />
+
+    <bean class="com.example.domain.User" id="user" >
+        <description>用来描述当前Bean</description>
+    </bean>
+
+    <alias name="user" alias="userContainer" />
+
+    <!--  基于 setter 方法 初始化bean-->
+    <!--  property 是根据 setXXX 方法进行注入的 -->
+    <bean class="com.example.domain.User" id="user3" >
+        <property name="id" value="1" />
+        <property name="name"   value="zhangsan" />
+        <property name="realName" value="lisi" />
+    </bean>
+
+    <bean class="com.example.domain.User" id="user4" >
+        <constructor-arg value="1" name="id" />
+        <constructor-arg value="zhangsan" name="name" />
+        <constructor-arg value="wangwu" name="realName" />
+    </bean>
+
+    <bean class="com.example.domain.Person" name="person" >
+
+        <property name="name" value="maliu" />
+        <property name="hobbies" >
+            <list>
+                <value >唱歌</value>
+                <value>跳舞</value>
+                <value>null</value>
+            </list>
+        </property>
+
+        <property name="linkJob" >
+            <map>
+                <description>this is linkJob description</description>
+                <entry key="engineer" value="3000"  />
+                <entry key="teacher" value="4000" />
+            </map>
+        </property>
+
+<!--        <property name="wife" ref="wife" />-->
+
+    </bean>
+
+<!--    <bean class="com.example.domain.Wife" id="wife" scope="prototype" >-->
+<!--        -->
+<!--    </bean>-->
+
+<!--    <bean class="com.example.domain.Wife" id="wife2" p:name="chenba" p:age="33" />-->
+    <bean name="wife" class="com.example.domain.Wife" />
+
+</beans>

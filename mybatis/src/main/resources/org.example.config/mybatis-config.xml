@@ -40,15 +40,6 @@
 
         <setting name="logImpl" value="STDOUT_LOGGING"/>
     </settings>
-
-    <!-- 别名类型-->
-    <typeAliases>
-        <package name="org.example.domain" />
-        <!-- 别名可空-->
-<!--        <typeAlias type="org.example.domain.User" alias="User"/>-->
-<!--        <typeAlias type="org.example.domain.RoleEnum" alias="RoleEnum" />-->
-    </typeAliases>
-
     <environments default="development">
         <environment id="development">
             <transactionManager type="JDBC" />

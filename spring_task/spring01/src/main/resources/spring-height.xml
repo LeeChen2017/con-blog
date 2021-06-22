@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:context="http://www.springframework.org/schema/context"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd">
+
+
+    <!-- 控制加载顺序 的话可以使用 depend-on -->
+<!--    <bean class="com.example.domain.User" name="user" depends-on="wife" />-->
+<!--    <bean class="com.example.domain.Wife" name="wife" />-->
+    <bean class="com.example.domain.Person" name="person" />
+
+
+    <!-- 懒加载 IOC　容器初始化时不加载，只有在使用时加载 -->
+    <bean class="com.example.domain.Person" lazy-init="true" />
+    <bean class="com.example.postprocessor.InstantiationTracingBeanPostProcessor" />
+
+    <context:annotation-config />
+</beans>

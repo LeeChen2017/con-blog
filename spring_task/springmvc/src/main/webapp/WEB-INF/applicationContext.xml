@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd">
+
+    <bean id="simple" class="controller.SimpleController" />
+    <bean class="org.springframework.web.servlet.handler.SimpleUrlHandlerMapping">
+        <property name="urlMap" >
+            <props>
+                <prop key="/hello">simple</prop>
+            </props>
+        </property>
+        <property name="interceptors">
+            <list>
+                <bean class="interceptor.SimpleInterceptor" />
+            </list>
+        </property>
+    </bean>
+
+    <bean class="org.springframework.web.servlet.mvc.SimpleControllerHandlerAdapter"/>
+
+    <bean class="org.springframework.web.servlet.view.UrlBasedViewResolver">
+        <property name="suffix" value=".jsp" />
+        <property name="prefix" value="/WEB-INF/page/" />
+        <property name="viewClass" value="org.springframework.web.servlet.view.JstlView"/>
+     </bean>
+
+
+
+</beans>

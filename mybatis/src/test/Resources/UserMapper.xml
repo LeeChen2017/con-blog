@@ -9,9 +9,16 @@
         <result column="age" jdbcType="INTEGER"  javaType="java.lang.Integer"/>
         <result column="address" jdbcType="VARCHAR"  javaType="java.lang.String"/>
     </resultMap>
+    <!-- 非指定类型结果集 -->
+    <parameterMap id="parameterMap" type="java.util.Map">
+        <parameter property="name" javaType="java.lang.String" />
+
+    </parameterMap>
     <!--  缓存清空策略 FIFO 先进先出 ，LRU 最少使用原则，SOFT 软引用 基于垃圾回收器状态和软引用规则移除对象，WEAK 弱引用 更积极地基于垃圾收集器状态和弱引用规则移除对象-->
-   h
-    <select id="findAll" resultType="org.example.domain.User">
+    <cache eviction="FIFO" flushInterval="600000" size="1024"  />
+
+    <!-- 查询时 不需要刷新缓存，前提是需要开启缓存此配置才生效-->
+    <select id="findAll" resultType="org.example.domain.User" flushCache="false">
         select * from user
     </select>
 
@@ -19,6 +26,16 @@
         select * from user where id = #{id}
     </select>
 
+    <select id="selectListByNameLikeAndAgeEqual" flushCache="false" statementType="PREPARED" parameterType="User" resultType="User">
+        <bind name="pattern" value="'%' + name + '%'"/>
+        select id , name , age  , address from user where name like #{pattern}
+
+    </select>
+
+    <insert id="saveUser" flushCache="true" keyColumn="id" keyProperty="id" useGeneratedKeys="true"  parameterType="java.lang.Long">
+<!--        <selectKey keyProperty="id" order="AFTER" keyColumn="id" />-->
+
+    </insert>
 
 
 </mapper>

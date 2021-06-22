@@ -7,7 +7,6 @@
     <!-- 加载属性文件 -->
     <properties resource="db.properties">
         <!--properties中还可以配置一些属性名和属性值  -->
-        <!-- <property name="jdbc.driver" value=""/> -->
     </properties>
     <!-- 全局配置参数，需要时再设置 -->
     <!-- <settings>
@@ -25,7 +24,7 @@
         <!-- 批量别名定义
         指定包名，mybatis自动扫描包中的po类，自动定义别名，别名就是类名（首字母大写或小写都可以）
         -->
-        <package name="cn.itcast.mybatis.po"/>
+        <package name="org.example.domain"/>
 
     </typeAliases>
 
@@ -45,7 +44,7 @@
     </environments>
     <!-- 加载 映射文件 -->
     <mappers>
-        <mapper resource="sqlmap/User.xml"/>
+        <mapper resource="UserMapper.xml"/>
 
         <!--通过resource方法一次加载一个映射文件 -->
         <!-- <mapper resource="mapper/UserMapper.xml"/> -->

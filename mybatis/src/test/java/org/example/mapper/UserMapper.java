@@ -7,23 +7,21 @@ import java.util.List;
 
 /**
  * mapper 接口 定义增删改查接口
- *
  * @author licc
  * @date 2021/05/08
+ *
  */
 //@Mapper
 public interface UserMapper {
 
     /**
      * 查出所有数据
-     *
      * @return 所有用户列表
      */
     List<User> findAll();
 
     /**
      * 根据ID 查出指定用户
-     *
      * @param id id
      * @return 指定用户对象
      */
@@ -31,19 +29,16 @@ public interface UserMapper {
 
     /**
      * 保存用户
-     *
      * @param user 待保存用户
      */
     void save(User user);
 
     /**
-     * 模糊查询
-     *
+     * 根据 名称模糊查询
      * @param name 名称
-     * @param age  年龄
+     * @param age 年龄
      * @return 对象集合
      */
-    List<User> selectListByNameAndAgeLike(@Param("name") String name, @Param("age") Integer age);
-
+    List<User> selectListByNameLikeAndAgeEqual(@Param("name") String name , @Param("age") Integer age);
 
 }
